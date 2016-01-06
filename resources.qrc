@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/ic_warning_36px.svg</file>
+        <file>images/ic_format_align_center_24px.svg</file>
+        <file>images/ic_format_align_justify_24px.svg</file>
+        <file>images/ic_format_align_left_24px.svg</file>
+        <file>images/ic_format_align_right_24px.svg</file>
+        <file>images/ic_format_bold_24px.svg</file>
+        <file>images/ic_format_italic_24px.svg</file>
+        <file>images/ic_format_strikethrough_24px.svg</file>
+        <file>images/ic_format_underlined_24px.svg</file>
+        <file>images/ic_format_indent_decrease_24px.svg</file>
+        <file>images/ic_format_indent_increase_24px.svg</file>
+    </qresource>
+</RCC>

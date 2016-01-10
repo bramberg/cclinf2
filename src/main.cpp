@@ -4,7 +4,7 @@
 #include <QtGlobal>
 #include <QDebug>
 
-#include "main_window/main_window.h"
+#include "main_window.h"
 
 #include <QUuid>
 

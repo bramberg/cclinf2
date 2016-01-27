@@ -1,11 +1,11 @@
 
 #include <QStringList>
 #include <QIcon>
-#include "tree/tree_model.h"
-
 #include <QTextDocument>
 #include <QFont>
 #include <QDebug>
+
+#include "navigation/tree/tree_model.h"
 
 TreeModel::TreeModel(const QString &data, QObject *parent)
     : QAbstractItemModel(parent) {

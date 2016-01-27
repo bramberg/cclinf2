@@ -17,5 +17,7 @@
         <file>images/ic_delete_24px.svg</file>
         <file>images/ic_folder_24px.svg</file>
         <file>images/ic_plus_one_24px.svg</file>
+        <file>images/ic_find_in_page_24px.svg</file>
+        <file>images/ic_search_24px.svg</file>
     </qresource>
 </RCC>

@@ -15,8 +15,23 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) { SetupUi(); }
 
 MainWindow::~MainWindow() { ReleaseUi(); }
 
+QMenuBar* MainWindow::CreateMainMenuBar() {
+  QMenuBar *menu_bar = new QMenuBar(this);
+  menu_bar->addAction("Database");
+  menu_bar->addAction("Record");
+  menu_bar->addAction("Note");
+  menu_bar->addAction("Edit");
+  menu_bar->addAction("View");
+  menu_bar->addAction("Settings");
+  menu_bar->addAction("About");
+
+  return menu_bar;
+}
+
 void MainWindow::SetupUi() {
 
+
+//QMessageBox::aboutQt(this);
 
   // this->setMenuBar(menu_bar_);
 
@@ -48,13 +63,13 @@ void MainWindow::SetupUi() {
 
   layout_ = new QVBoxLayout(this);
 
-  //label_ = new QLabel("Label Text");
-  //text_ = new Editor(this);
+  // label_ = new QLabel("Label Text");
+  // text_ = new Editor(this);
   record_viewer_ = new RecordViewer(this);
 
-   //layout_->addWidget(label_);
+  // layout_->addWidget(label_);
   // layout_->addSpacing(100);
-   //layout_->addWidget(text_);
+  // layout_->addWidget(text_);
   layout_->addWidget(record_viewer_);
 
   layout_->setDirection(QVBoxLayout::TopToBottom);
@@ -64,11 +79,8 @@ void MainWindow::SetupUi() {
   window_->setLayout(layout_);
   setCentralWidget(window_);
 
-  menu_bar_ = new QMenuBar(this);
-  menuBar()->addAction("File");
-  menuBar()->addAction("Edit");
-  menuBar()->addAction("Settings");
-  menuBar()->addAction("About");
+  menu_bar_ = CreateMainMenuBar();
+  QMainWindow::setMenuBar(menu_bar_);
 
   navigation_tree_dock_ = new QDockWidget(tr("Navigation"));
   navigation_tree_ = new NavigationTree(navigation_tree_dock_);
@@ -113,8 +125,6 @@ void MainWindow::SetupUi() {
   //  this->setDock;
 
   // navigation_tree_dock_->show();
-
-
 
   addDockWidget(Qt::LeftDockWidgetArea, navigation_tree_dock_);
 

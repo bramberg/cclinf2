@@ -12,8 +12,8 @@
 
 #include <QStyledItemDelegate>
 
-#include "search_line/search_line.h"
-#include "tree/tree_model.h"
+#include "navigation/search_line/search_line.h"
+#include "navigation/tree/tree_model.h"
 
 class HtmlDelegate : public QStyledItemDelegate {
  protected:
@@ -38,7 +38,6 @@ class NavigationTree : public QWidget {
   void SetupSignals();
   void SetupUI();
 
-
   TreeModel *tree_model_;
   HtmlDelegate *delegate_;
 
@@ -49,9 +48,7 @@ class NavigationTree : public QWidget {
 
   QLabel *label_;
 
-  QToolBar *tool_bar_;
 
- protected:
 };
 
 #endif

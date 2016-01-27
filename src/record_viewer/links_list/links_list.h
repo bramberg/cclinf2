@@ -23,10 +23,8 @@ class LinksListView : public QWidget {
 
  private:
   QVBoxLayout *layout_;
-  VerticalScrollArea* scroll_area_;
-  QVBoxLayout *inner_layout_;
   QList<LinkView*> elements_;
-  QPushButton *add_button_;
+  QToolButton *add_button_;
 };
 
 #endif  // ATTACHESVIEW_H

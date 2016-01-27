@@ -1,5 +1,5 @@
 
-#include "tree/tree_view.h"
+#include "navigation/tree/tree_view.h"
 
 #include <QHeaderView>
 
@@ -121,32 +121,12 @@ void NavigationTree::SetupUI() {
 
   tree_widget_->header()->hide();
 
-  label_ = new QLabel("QLabel");
-  // label_->setFrameStyle(QFrame::Box);
-
-  tool_bar_ = new QToolBar("tool_bar_");
-  tool_bar_->addAction(QIcon("../cclinf-2/material-icons/core/report.svg"),
-                       "Rep&ort");
-  tool_bar_->addAction(QIcon("../cclinf-2/material-icons/core/reply.svg"),
-                       "&Reply");
-  tool_bar_->addAction(QIcon("../cclinf-2/material-icons/core/save.svg"),
-                       "&Save");
-  tool_bar_->addAction(QIcon("../cclinf-2/material-icons/core/print.svg"),
-                       "&Print");
-  tool_bar_->addAction(QIcon("../cclinf-2/material-icons/core/keep.svg"),
-                       "&Keep");
-
-  tool_bar_->setIconSize(QSize(15, 17));
-
-  // layout_->addWidget(tool_bar_);
-  // layout_->addWidget(label_);
   layout_->addWidget(search_line_);
   layout_->addWidget(tree_widget_);
 
-  // layout_->setSpacing(5);
-  // layout_->setMargin(0);
+  layout_->setSpacing(5);
+  layout_->setMargin(0);
 
-  // this->set
   this->setLayout(layout_);
   this->show();
 

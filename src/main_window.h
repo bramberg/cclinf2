@@ -12,7 +12,7 @@
 #include <QStatusBar>
 #include <QMenuBar>
 
-#include "tree/tree_view.h"
+#include "navigation/tree/tree_view.h"
 #include "record_viewer/editor/editor.h"
 #include "record_viewer/record_viewer.h"
 
@@ -28,6 +28,8 @@ class MainWindow : public QMainWindow {
  private:
   void SetupUi();
   void ReleaseUi();
+
+  QMenuBar *CreateMainMenuBar();
 
   QMenuBar *menu_bar_;
 

@@ -31,7 +31,7 @@ void LinkView::SetupUi() {
   layout_->addWidget(configure_button_);
   layout_->addWidget(label_);
   layout_->setMargin(0);
-  layout_->setSpacing(3);
+  layout_->setSpacing(2);
   layout_->setSizeConstraint(QLayout::SetFixedSize);
 
   this->setLayout(layout_);

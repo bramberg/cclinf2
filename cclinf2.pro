@@ -20,12 +20,13 @@ SOURCES += \
     src/record_viewer/links_list/links_list.cc \
     src/record_viewer/links_list/vertical_scroll_area.cc \
     src/record_viewer/record_viewer.cc \
-    src/search_line/search_line.cc \
-    src/tree/tree_model.cc \
-    src/tree/tree_view.cc \
     src/utils/exception.cc \
     src/main.cpp \
-    src/main_window.cc
+    src/main_window.cc \
+    src/navigation/search_line/search_line.cc \
+    src/navigation/tree/tree_model.cc \
+    src/navigation/tree/tree_view.cc \
+    src/navigation/navigation.cc
 
 INCLUDEPATH += src
 
@@ -54,11 +55,12 @@ HEADERS += \
     src/record_viewer/links_list/links_list.h \
     src/record_viewer/links_list/vertical_scroll_area.h \
     src/record_viewer/record_viewer.h \
-    src/search_line/search_line.h \
-    src/tree/tree_model.h \
-    src/tree/tree_view.h \
     src/utils/exception.h \
-    src/main_window.h
+    src/main_window.h \
+    src/navigation/search_line/search_line.h \
+    src/navigation/tree/tree_model.h \
+    src/navigation/tree/tree_view.h \
+    src/navigation/navigation.h
 
 DISTFILES +=
 

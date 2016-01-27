@@ -45,26 +45,22 @@ void Editor::SetupSignals() {
 
 void Editor::SetupUI() {
   vertical_layout_ = new QVBoxLayout(this);
-  //horizontal_layout_ = new QHBoxLayout(this);
-  //vertical_layout_->addLayout(horizontal_layout_);
-   //vertical_layout_->setMargin(0);
-  // vertical_layout_->setSpacing(0);
+
+  vertical_layout_->setMargin(0);
+  vertical_layout_->setSpacing(0);
 
   formatting_tool_bar_ = new FormattingToolbar(this);
 
-  //
-  // text_edit_->font();
-
-  // text_edit_->zoomIn();
+  text_edit_ = new QTextEdit(this);
+  text_edit_->setSizePolicy(QSizePolicy::MinimumExpanding,
+                            QSizePolicy::MinimumExpanding);
+  //text_edit_->setStyleSheet("margin: 0px"); //TODO: redo later
 
   vertical_layout_->addWidget(formatting_tool_bar_);
-
-  text_edit_ = new QTextEdit(this);
-  text_edit_->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
   vertical_layout_->addWidget(text_edit_);
 
-  this->setLayout(vertical_layout_);
-  this->show();
+  QWidget::setLayout(vertical_layout_);
+  QWidget::show();
 }
 
 void Editor::SetTextBold(const bool is_bold) {

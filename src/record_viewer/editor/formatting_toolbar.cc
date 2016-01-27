@@ -135,6 +135,10 @@ void FormattingToolbar::SetupUi() {
   this->setLayout(layout_);
   tool_bar_ = CreateToolbar();
 
+  tool_bar_->setMovable(true);
+  tool_bar_->setAllowedAreas(Qt::LeftToolBarArea);
+  tool_bar_->setFloatable(true);
+
   //tool_bar_->set
 
   layout_->addWidget(tool_bar_);

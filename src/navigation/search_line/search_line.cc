@@ -1,5 +1,5 @@
 
-#include "search_line/search_line.h"
+#include "navigation/search_line/search_line.h"
 
 SearchLine::SearchLine(QWidget *parent) : QWidget(parent) { SetupUI(); }
 
@@ -10,7 +10,7 @@ void SearchLine::SetupUI() {
   search_line_ = new QLineEdit();
   search_line_->setPlaceholderText(tr("Search for..."));
   button_ = new QPushButton();
-  button_->setIcon(QIcon("../cclinf-2/material-icons/core/search.svg"));
+  button_->setIcon(QIcon("://images/ic_search_24px.svg"));
   layout_->addWidget(search_line_);
   layout_->addWidget(button_);
 

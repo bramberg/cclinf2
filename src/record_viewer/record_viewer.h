@@ -6,6 +6,8 @@
 #include <QTabWidget>
 #include <QList>
 #include <QLayout>
+#include <QScrollArea>
+#include <QSplitter>
 
 #include "editor/editor.h"
 #include "db/record.h"
@@ -38,7 +40,10 @@ signals:
   QList<Editor *> notes_editors_;
 
   Editor *notes_editor_;
+
   LinksListView *links_list_;
+  QScrollArea *scroll_area_;
+  QSplitter *splitter_;
 };
 
 #endif  // RECORDVIEWER_H

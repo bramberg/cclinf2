@@ -36,7 +36,7 @@ void RecordViewer::SetupUi() {
       border-radius: 0px;\
   }");
 
-        palette().highlight();
+  palette().highlight();
 
   // tab_widget_->setStyleSheet("QTabWidget::pane { border-color: red; }");
 
@@ -61,9 +61,22 @@ void RecordViewer::SetupUi() {
   splitter_->addWidget(scroll_area_);
   splitter_->setOrientation(Qt::Orientation::Vertical);
 
+  title_ = new RecordTitle(this);
+  title_->SetName(
+      "<b><font size=\"4\">Record name</font></b>" /*record_->GetName()*/);
+  title_->SetNotaion(
+      "<font color=\"gray\" size=\"3\">1.2.3.4.5.6.7</font>" /*record_->GetNotation()*/);
+  layout_->addWidget(title_);
   layout_->addWidget(splitter_);
   // layout_->addWidget(tab_widget_);
   // layout_->addWidget(scroll_area_);
+
+  add_attach_ = new AddAttach(this);
+  Record::Attach attach{"Name of attach", "/home/user/VBoxLinuxAdditions.run12",
+                        QDateTime(QDate(), QTime())};
+  add_attach_->SetAttach(&attach);
+
+  add_attach_->exec();
 
   QWidget::setLayout(layout_);
   QWidget::show();

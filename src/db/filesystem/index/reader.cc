@@ -25,7 +25,6 @@ Record *IndexXmlReader::ReadRecordsFromFile(const QString &file_name) {
   Read(&xml_file);
   xml_file.close();
   Record *record_tree = CreateTreeFromHash();
-  qDebug() << "checkpoint " << records_hash_.size();
   return record_tree;
 }
 

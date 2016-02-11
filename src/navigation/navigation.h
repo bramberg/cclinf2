@@ -3,15 +3,14 @@
 
 #include <QWidget>
 
-class Navigation : public QWidget
-{
+class Navigation : public QWidget {
   Q_OBJECT
-public:
+ public:
   explicit Navigation(QWidget *parent = 0);
 
 signals:
 
-public slots:
+ public slots:
 };
 
-#endif // NAVIGATION_H
+#endif  // NAVIGATION_H

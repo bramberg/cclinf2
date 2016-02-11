@@ -5,7 +5,7 @@
 #include <QXmlStreamReader>
 
 #include "db/filesystem/xml.h"
-#include "db/record.h"
+#include "record.h"
 #include "utils/exception.h"
 
 class IndexXmlWriter {

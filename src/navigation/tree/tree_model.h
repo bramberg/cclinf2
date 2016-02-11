@@ -5,7 +5,7 @@
 #include <QtGlobal>
 #include <QString>
 #include <QAbstractItemModel>
-#include "db/record.h"
+#include "record.h"
 
 class TreeModel : public QAbstractItemModel {
   Q_OBJECT

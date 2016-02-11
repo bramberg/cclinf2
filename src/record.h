@@ -36,7 +36,7 @@ class Record {
   explicit Record(Record *parent = 0)
       : parent_(parent), name_("<NOT_SET>"), is_unattached_(false) {}
   explicit Record(const QString name, Record *parent = 0)
-      : name_(name), parent_(parent), is_unattached_(false) {}
+      : parent_(parent), name_(name), is_unattached_(false) {}
   ~Record();
 
   void AppendChild(Record *child);

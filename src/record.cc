@@ -1,5 +1,5 @@
 
-#include "db/record.h"
+#include "record.h"
 
 // Record::Record(Record *parent) {
 //  // name_ = "<NOT SET>";

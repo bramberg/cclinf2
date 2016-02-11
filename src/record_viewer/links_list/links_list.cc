@@ -9,7 +9,7 @@ void LinksListView::SetupUi() {
   layout_ = new QVBoxLayout(this);
 
   add_button_ = new QToolButton(this);
-  add_button_->setText("+");
+  add_button_->setText(tr("+"));
   add_button_->setIcon(QIcon(":/images/ic_add_24px.svg"));
   add_button_->setIconSize(QSize(17, 17));
 

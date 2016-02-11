@@ -38,8 +38,7 @@ class Editor : public QWidget {
   void CursorPositionChanged();
 
  private:
-  QVBoxLayout *vertical_layout_;
-  QHBoxLayout *horizontal_layout_;
+  QVBoxLayout *layout_;
   FormattingToolbar *formatting_tool_bar_;
   QTextEdit *text_edit_;
 

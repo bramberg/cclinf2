@@ -10,7 +10,6 @@ SOURCES += \
     src/db/filesystem/index/writer.cc \
     src/db/filesystem/db.cc \
     src/db/filesystem/xml.cc \
-    src/db/record.cc \
     src/db/record_data.cc \
     src/db/settings.cc \
     src/record_viewer/editor/custom_text_edit.cc \
@@ -26,7 +25,10 @@ SOURCES += \
     src/navigation/search_line/search_line.cc \
     src/navigation/tree/tree_model.cc \
     src/navigation/tree/tree_view.cc \
-    src/navigation/navigation.cc
+    src/navigation/navigation.cc \
+    src/record_viewer/title/record_title.cc \
+    src/record.cc \
+    src/add_attach/add_attach.cc
 
 INCLUDEPATH += src
 
@@ -45,7 +47,6 @@ HEADERS += \
     src/db/filesystem/index/writer.h \
     src/db/filesystem/db.h \
     src/db/filesystem/xml.h \
-    src/db/record.h \
     src/db/record_data.h \
     src/db/settings.h \
     src/record_viewer/editor/custom_text_edit.h \
@@ -60,7 +61,10 @@ HEADERS += \
     src/navigation/search_line/search_line.h \
     src/navigation/tree/tree_model.h \
     src/navigation/tree/tree_view.h \
-    src/navigation/navigation.h
+    src/navigation/navigation.h \
+    src/record_viewer/title/record_title.h \
+    src/record.h \
+    src/add_attach/add_attach.h
 
 DISTFILES +=
 

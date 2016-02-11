@@ -40,6 +40,7 @@ class MainWindow : public QMainWindow {
   QDockWidget *navigation_tree_dock_;
   QStatusBar *status_bar_;
 
+  QWidget *central_widget_;
   QVBoxLayout *layout_;
   QLabel *label_;
   Editor *text_;

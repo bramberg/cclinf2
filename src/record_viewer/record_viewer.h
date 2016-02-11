@@ -10,8 +10,10 @@
 #include <QSplitter>
 
 #include "editor/editor.h"
-#include "db/record.h"
+#include "record.h"
 #include "links_list/links_list.h"
+#include "title/record_title.h"
+#include "add_attach/add_attach.h"
 
 class RecordViewer : public QWidget {
   Q_OBJECT
@@ -33,17 +35,19 @@ signals:
 
  private:
   QVBoxLayout *layout_;
+  RecordTitle *title_;
+  Editor *notes_editor_;
 
   Record *record_;
 
   QTabWidget *tab_widget_;  // TODO: custom tab widget
   QList<Editor *> notes_editors_;
 
-  Editor *notes_editor_;
-
   LinksListView *links_list_;
   QScrollArea *scroll_area_;
   QSplitter *splitter_;
+
+  AddAttach *add_attach_;
 };
 
 #endif  // RECORDVIEWER_H

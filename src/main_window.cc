@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) { SetupUi(); }
 
 MainWindow::~MainWindow() { ReleaseUi(); }
 
-QMenuBar* MainWindow::CreateMainMenuBar() {
+QMenuBar *MainWindow::CreateMainMenuBar() {
   QMenuBar *menu_bar = new QMenuBar(this);
   menu_bar->addAction("Database");
   menu_bar->addAction("Record");
@@ -29,9 +29,7 @@ QMenuBar* MainWindow::CreateMainMenuBar() {
 }
 
 void MainWindow::SetupUi() {
-
-
-//QMessageBox::aboutQt(this);
+  // QMessageBox::aboutQt(this);
 
   // this->setMenuBar(menu_bar_);
 
@@ -61,7 +59,10 @@ void MainWindow::SetupUi() {
 
   return;*/
 
-  layout_ = new QVBoxLayout(this);
+  central_widget_ = new QWidget(this);
+  this->setCentralWidget(central_widget_);
+
+  layout_ = new QVBoxLayout(central_widget_);
 
   // label_ = new QLabel("Label Text");
   // text_ = new Editor(this);

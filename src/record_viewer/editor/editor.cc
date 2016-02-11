@@ -13,8 +13,7 @@ Editor::Editor(QWidget *parent) : QWidget(parent) {
 }
 
 Editor::~Editor() {
-  delete horizontal_layout_;
-  delete vertical_layout_;
+  delete text_edit_;
   delete formatting_tool_bar_;
 }
 
@@ -44,22 +43,22 @@ void Editor::SetupSignals() {
 }
 
 void Editor::SetupUI() {
-  vertical_layout_ = new QVBoxLayout(this);
+  layout_ = new QVBoxLayout(this);
 
-  vertical_layout_->setMargin(0);
-  vertical_layout_->setSpacing(0);
+  layout_->setMargin(0);
+  layout_->setSpacing(0);
 
   formatting_tool_bar_ = new FormattingToolbar(this);
 
   text_edit_ = new QTextEdit(this);
   text_edit_->setSizePolicy(QSizePolicy::MinimumExpanding,
                             QSizePolicy::MinimumExpanding);
-  //text_edit_->setStyleSheet("margin: 0px"); //TODO: redo later
+  // text_edit_->setStyleSheet("margin: 0px"); //TODO: redo later
 
-  vertical_layout_->addWidget(formatting_tool_bar_);
-  vertical_layout_->addWidget(text_edit_);
+  layout_->addWidget(formatting_tool_bar_);
+  layout_->addWidget(text_edit_);
 
-  QWidget::setLayout(vertical_layout_);
+  QWidget::setLayout(layout_);
   QWidget::show();
 }
 

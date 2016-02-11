@@ -3,7 +3,9 @@
 
 #include <QFileDialog>
 
-AddAttach::AddAttach(QWidget *parent) : QDialog(parent) { SetupUi(); }
+AddAttach::AddAttach(QWidget *parent) : QDialog(parent), attach_(nullptr) {
+  SetupUi();
+}
 
 AddAttach::AddAttach(Record::Attach *attach, QWidget *parent)
     : QDialog(parent) {
@@ -22,12 +24,27 @@ void AddAttach::SetAttach(Record::Attach *attach) {
 }
 
 void AddAttach::BrowseButtonIsPressed(bool is_pressed) {
+  (void)is_pressed;
   QString file_name = QFileDialog::getOpenFileName(
       this, tr("Select File"), attach_ ? attach_->file_name : "",
       tr("All Files (*.*)"));
   if (!file_name.isEmpty()) {
     file_name_line_->setText(file_name);
   }
+}
+
+void AddAttach::OkButtonIsPressed(bool is_pressed) {
+  (void)is_pressed;
+  if (attach_) {
+    attach_->file_name = file_name_line_->text();
+    attach_->name = name_line_->text();
+  }
+  this->hide();
+}
+
+void AddAttach::CancelButtonIsPressed(bool is_pressed) {
+  (void)is_pressed;
+  this->hide();
 }
 
 void AddAttach::SetupUi() {
@@ -58,8 +75,13 @@ void AddAttach::SetupUi() {
   // TODO: fix streching
   this->setLayout(layout_);
   this->setWindowTitle(tr("Add attach to record"));
+
   connect(browse_button_, SIGNAL(clicked(bool)), this,
           SLOT(BrowseButtonIsPressed(bool)));
+  connect(ok_button_, SIGNAL(clicked(bool)), this,
+          SLOT(OkButtonIsPressed(bool)));
+  connect(cancel_button_, SIGNAL(clicked(bool)), this,
+          SLOT(CancelButtonIsPressed(bool)));
 }
 
 void AddAttach::ReleaseUi() {}

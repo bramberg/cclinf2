@@ -30,7 +30,9 @@ class AddAttach : public QDialog {
 signals:
 
  public slots:
-  void BrowseButtonIsPressed(bool is_pressed);
+  void BrowseButtonIsPressed(bool);
+  void OkButtonIsPressed(bool);
+  void CancelButtonIsPressed(bool);
 
  private:
   Record::Attach* attach_;

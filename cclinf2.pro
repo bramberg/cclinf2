@@ -28,7 +28,7 @@ SOURCES += \
     src/navigation/navigation.cc \
     src/record_viewer/title/record_title.cc \
     src/record.cc \
-    src/add_attach/add_attach.cc
+    src/dialogs/new_attachment_dialog.cc
 
 INCLUDEPATH += src
 
@@ -64,7 +64,7 @@ HEADERS += \
     src/navigation/navigation.h \
     src/record_viewer/title/record_title.h \
     src/record.h \
-    src/add_attach/add_attach.h
+    src/dialogs/new_attachment_dialog.h
 
 DISTFILES +=
 

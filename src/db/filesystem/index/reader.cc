@@ -103,20 +103,12 @@ void IndexXmlReader::Read(QIODevice *device) {
     ReadIndex();
   } else {
     qDebug() << "ERROR " << __LINE__;
-    qDebug() << "checkpoint " << xml_.name();
     xml_.raiseError();
   }
 
-  // qDebug() << "checkpoint " << __LINE__;
-
-  // readNextStartElement() leaves the stream in
-  // an invalid state at the end. A single readNext()
-  // will advance us to EndDocument.
   if (xml_.tokenType() == QXmlStreamReader::Invalid) {
     xml_.readNext();
   }
-
-  // qDebug() << "checkpoint " << __LINE__;
 
   if (xml_.hasError()) {
     qDebug() << "ERROR " << __LINE__;

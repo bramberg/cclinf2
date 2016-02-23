@@ -53,11 +53,9 @@ void IndexXmlWriter::Write(const Record *&records_tree, QIODevice *device) {
   xml_.writeEndElement();
   xml_.writeEndDocument();
 
-  qDebug() << "checkpoint " << __LINE__;
   if (xml_.hasError()) {
     qDebug() << "ERROR " << __LINE__;
   }
-  qDebug() << "checkpoint " << records_tree_;
 }
 
 void IndexXmlWriter::WriteVersion() {

@@ -19,9 +19,5 @@ int main(int argc, char *argv[]) {
   // QQmlApplicationEngine engine;
   // engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-  QUuid uid = QUuid(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
-  qDebug() << uid.toString();
-
   return app.exec();
 }

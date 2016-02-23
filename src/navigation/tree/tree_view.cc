@@ -72,8 +72,6 @@ void NavigationTree::TreeElementSelected(const QModelIndex &index) {
 }
 
 void NavigationTree::SetupModels() {
-  qDebug() << "checkpoint ";
-
   Record *records_from_file;
 
   try {
@@ -93,19 +91,13 @@ void NavigationTree::SetupModels() {
   IndexXmlWriter().WriteIndexToFile(records_from_file, "../test2.xml");
   // records_from_file, "C:\\Users\\andrey\\Documents\\QtProjects\\test2.xml");
 
-  qDebug() << "checkpoint ";
   if (records_from_file) {
-    qDebug() << "checkpoint ";
     tree_model_ = new TreeModel(records_from_file, nullptr);
-    qDebug() << "checkpoint ";
     tree_widget_->setModel(tree_model_);
 
     delegate_ = new HtmlDelegate();
     tree_widget_->setItemDelegate(delegate_);
-    qDebug() << "checkpoint ";
   }
-
-  qDebug() << "checkpoint ";
 }
 
 void NavigationTree::SetupSignals() {

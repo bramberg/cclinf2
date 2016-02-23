@@ -42,7 +42,7 @@ void LinksListView::SetupUi() {
 
 void LinksListView::Update() {
   //record_.
-  foreach (LinkView *element, elements_) {}
+  //foreach (LinkView *element, elements_) {}
 }
 
 void LinksListView::SetupSignals() {

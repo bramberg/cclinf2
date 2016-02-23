@@ -13,7 +13,9 @@ RecordViewer::RecordViewer(Record *record, QWidget *parent) : QWidget(parent) {
   SetRecord(record);
 }
 
-RecordViewer::~RecordViewer() {}
+RecordViewer::~RecordViewer() {
+  foreach (Editor *editor, notes_editors_) { delete editor; }
+}
 
 void RecordViewer::SetupUi() {
   // if (record_->GetNumberOfNotes() > 1)
@@ -89,8 +91,7 @@ void RecordViewer::SetRecord(Record *record) {
 }
 
 void RecordViewer::AddNewAttach() {
-  Record::Attachment *new_attach =
-      new Record::Attachment();
+  Record::Attachment *new_attach = new Record::Attachment();
   NewAttachmentDialog attach_window(new_attach, this);
   int result = attach_window.exec();
   if (result == NewAttachmentDialog::Accepted) {

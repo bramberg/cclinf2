@@ -10,7 +10,10 @@ Record::Record(const QUuid uuid, Record *parent)
 Record::Record(const QUuid uuid, const QString name, Record *parent)
     : uuid_(uuid), parent_(parent), name_(name), has_no_parent_(false) {}
 
-Record::~Record() { qDeleteAll(children_); }
+Record::~Record() {
+  foreach (Attachment *attachment, attachments_) { delete attachment; }
+  qDeleteAll(children_);
+}
 
 void Record::AppendChild(Record *child) { children_.append(child); }
 

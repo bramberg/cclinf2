@@ -66,7 +66,7 @@ void MainWindow::SetupUi() {
 
   // label_ = new QLabel("Label Text");
   // text_ = new Editor(this);
-  record_viewer_ = new RecordViewer(this);
+  record_viewer_ = new RecordViewer(new Record, this);
 
   // layout_->addWidget(label_);
   // layout_->addSpacing(100);
@@ -139,9 +139,4 @@ void MainWindow::SetupUi() {
                                          // this->setMargin(0);
 }
 
-void MainWindow::ReleaseUi() {
-  delete navigation_tree_;
-  delete navigation_tree_dock_;
-  navigation_tree_ = nullptr;
-  navigation_tree_dock_ = nullptr;
-}
+void MainWindow::ReleaseUi() {}

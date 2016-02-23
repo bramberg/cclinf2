@@ -1,5 +1,5 @@
 
-#include "add_attach/add_attach.h"
+#include "dialogs/new_attachment_dialog.h"
 
 #include <QFileDialog>
 #include <QMessageBox>

@@ -13,7 +13,7 @@
 #include "record.h"
 #include "links_list/links_list.h"
 #include "title/record_title.h"
-#include "add_attach/add_attach.h"
+#include "dialogs/new_attachment_dialog.h"
 
 class RecordViewer : public QWidget {
   Q_OBJECT

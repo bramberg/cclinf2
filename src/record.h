@@ -52,8 +52,8 @@ class Record {
 
   int GetNumberOfNotes() const;
 
-  QList<Attachment *> GetAttaches() const;
-  void SetAttaches(QList<Record::Attachment *> attached_files);
+  QList<Attachment *> GetAttachments() const;
+  void SetAttachments(QList<Record::Attachment *> attachments);
 
   QStringList GetTags() const;
   void SetTagList(const QStringList &tags);
@@ -67,15 +67,15 @@ class Record {
   QDateTime GetCreationDate() const;
   void SetCreationTime(const QDateTime &date);
 
-  void AddAttach(Attachment *attach);
+  void AddAttachment(Attachment *attachment);
   void AddNote(const Note &note);
   void AddTag(const QString &tag);
 
   QUuid GetUuid() const;
   void SetUuid(const QUuid &uuid);
 
-  bool IsUnattached();
-  void SetUnattached(bool is_unattached);
+  bool HasNoParent();
+  void SetNoParent(bool has_no_parent);
 
   void SortChildren();
 
@@ -90,10 +90,10 @@ class Record {
   QString notation_;
 
   QList<Note> notes_;
-  QList<Attachment *> attaches_;
+  QList<Attachment *> attachments_;
   QStringList tags_;
 
-  bool is_unattached_;
+  bool has_no_parent_;
 };
 
 #endif

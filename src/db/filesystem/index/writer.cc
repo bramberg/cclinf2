@@ -81,12 +81,12 @@ void IndexXmlWriter::WriteNote(const Record::Note &note) {
   xml_.writeEndElement();
 }
 
-void IndexXmlWriter::WriteAttach(const Record::Attachment &attach) {
-  xml_.writeStartElement(kAttachTagName);
-  xml_.writeTextElement(kNameTagName, attach.name);
+void IndexXmlWriter::WriteAttachment(const Record::Attachment &attachment) {
+  xml_.writeStartElement(kAttachmentTagName);
+  xml_.writeTextElement(kNameTagName, attachment.name);
   xml_.writeTextElement(kCreationTimeTagName,
-                        attach.time_of_attach.toString(kDateTimeFormat));
-  xml_.writeTextElement(kFileNameAttributeName, attach.file_name);
+                        attachment.time_of_attach.toString(kDateTimeFormat));
+  xml_.writeTextElement(kFileNameAttributeName, attachment.file_name);
   xml_.writeEndElement();
 }
 
@@ -111,11 +111,11 @@ void IndexXmlWriter::WriteRecord(const Record &record) {
     foreach (QString tag, record.GetTags()) { WriteTag(tag); }
     xml_.writeEndElement();
   }
-  if (!record.GetAttaches().isEmpty()) {
-    xml_.writeStartElement(kAttachesTagName);
-    foreach (Record::Attachment *attach, record.GetAttaches()) {
-      if (attach) {
-        WriteAttach(*attach);
+  if (!record.GetAttachments().isEmpty()) {
+    xml_.writeStartElement(kAttachmentsTagName);
+    foreach (Record::Attachment *attachment, record.GetAttachments()) {
+      if (attachment) {
+        WriteAttachment(*attachment);
       }
     }
     xml_.writeEndElement();

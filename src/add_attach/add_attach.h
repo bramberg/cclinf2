@@ -13,19 +13,20 @@
 
 #include "record.h"
 
-class AddAttach : public QDialog {
+class NewAttachmentDialog : public QDialog {
   Q_OBJECT
 
  public:
   enum Result { ResultOk, ResultCancel };
 
-  explicit AddAttach(QWidget* parent = 0);
-  explicit AddAttach(Record::Attachment* attach, QWidget* parent = 0);
-  ~AddAttach();
+  explicit NewAttachmentDialog(QWidget* parent = 0);
+  explicit NewAttachmentDialog(Record::Attachment* attachment,
+                               QWidget* parent = 0);
+  ~NewAttachmentDialog();
 
   void Show();
-  Record::Attachment* GetAttach() const;
-  void SetAttach(Record::Attachment* attach);
+  Record::Attachment* GetAttachment() const;
+  void SetAttachment(Record::Attachment* attachment);
 
 signals:
 
@@ -35,7 +36,7 @@ signals:
   void CancelButtonIsPressed(bool);
 
  private:
-  Record::Attachment* attach_;
+  Record::Attachment* attachment_;
 
   QGridLayout* layout_;
   QDialogButtonBox* ok_cancel_box_;
@@ -53,7 +54,6 @@ signals:
   void SetupUi();
   void SetupSignals();
   void ReleaseUi();
-  void SetupEditableValues(Record::Attachment& attach);
   bool NameAndFileNameAreSetUp();
 };
 

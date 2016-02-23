@@ -60,10 +60,7 @@ class IndexXmlReader /*: public XmlParser*/ {
   void ReadNoteAttributes(Record::Note &note);
   void ReadNoteContent(Record::Note &note);
   void ReadNote();
-
-  void ReadAttachAttributes(Record::Attachment &attach);
-  void ReadAttachContent(Record::Attachment &attach);
-  void ReadAttach();
+  void ReadAttachment();
 };
 
 #endif

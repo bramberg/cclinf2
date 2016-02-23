@@ -11,8 +11,8 @@ const QString kTagsTagName = "tags";
 const QString kTagTagName = "tag";
 const QString kChildrenTagName = "children";
 const QString kChildTagName = "child";
-const QString kAttachesTagName = "attaches";
-const QString kAttachTagName = "attach";
+const QString kAttachmentsTagName = "attachments";
+const QString kAttachmentTagName = "attachment";
 const QString kNotesTagName = "notes";
 const QString kNoteTagName = "note";
 

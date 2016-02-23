@@ -44,11 +44,9 @@ signals:
   QTabWidget *tab_widget_;  // TODO: custom tab widget
   QList<Editor *> notes_editors_;
 
-  LinksListView *links_list_;
+  LinksListView *attachments_list_;
   QScrollArea *scroll_area_;
   QSplitter *splitter_;
-
-  AddAttach *add_attach_;
 };
 
 #endif  // RECORDVIEWER_H

@@ -48,7 +48,7 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const {
 
         break;
       case Qt::BackgroundRole:
-        data = QColor(item->IsUnattached() ? QRgb(0xFFBBBB) : QRgb(0xFFFFFF));
+        data = QColor(item->HasNoParent() ? QRgb(0xFFBBBB) : QRgb(0xFFFFFF));
         break;
 
       case Qt::FontRole:

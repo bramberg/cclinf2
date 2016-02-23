@@ -2,13 +2,13 @@
 #include "record.h"
 
 Record::Record(Record *parent)
-    : parent_(parent), name_("<NOT_SET>"), is_unattached_(false) {}
+    : parent_(parent), name_("<NOT_SET>"), has_no_parent_(false) {}
 
 Record::Record(const QUuid uuid, Record *parent)
     : uuid_(uuid), parent_(parent) {}
 
 Record::Record(const QUuid uuid, const QString name, Record *parent)
-    : uuid_(uuid), parent_(parent), name_(name), is_unattached_(false) {}
+    : uuid_(uuid), parent_(parent), name_(name), has_no_parent_(false) {}
 
 Record::~Record() { qDeleteAll(children_); }
 
@@ -33,10 +33,12 @@ Record *Record::GetParent() const { return parent_; }
 
 void Record::SetParent(Record *parent) { parent_ = parent; }
 
-QList<Record::Attachment *> Record::GetAttaches() const { return attaches_; }
+QList<Record::Attachment *> Record::GetAttachments() const {
+  return attachments_;
+}
 
-void Record::SetAttaches(QList<Record::Attachment *> attached_files) {
-  attaches_ = attached_files;
+void Record::SetAttachments(QList<Record::Attachment *> attachments) {
+  attachments_ = attachments;
 }
 
 QList<Record::Note> Record::GetNotes() const { return notes_; }
@@ -58,7 +60,9 @@ QDateTime Record::GetCreationDate() const { return creation_time_; }
 
 void Record::SetCreationTime(const QDateTime &date) { creation_time_ = date; }
 
-void Record::AddAttach(Record::Attachment *attach) { attaches_.append(attach); }
+void Record::AddAttachment(Record::Attachment *attachment) {
+  attachments_.append(attachment);
+}
 
 void Record::AddNote(const Record::Note &note) { notes_.append(note); }
 
@@ -68,11 +72,9 @@ QUuid Record::GetUuid() const { return uuid_; }
 
 void Record::SetUuid(const QUuid &uuid) { uuid_ = uuid; }
 
-bool Record::IsUnattached() { return is_unattached_; }
+bool Record::HasNoParent() { return has_no_parent_; }
 
-void Record::SetUnattached(bool is_unattached) {
-  is_unattached_ = is_unattached;
-}
+void Record::SetNoParent(bool has_no_parent) { has_no_parent_ = has_no_parent; }
 
 void Record::SortChildren() {
   std::sort(children_.begin(), children_.end(), Record::Comparator());

@@ -50,12 +50,12 @@ void RecordViewer::SetupUi() {
                        Qt::green, Qt::green)));
   */
   // notes_editor_ = new Editor(this);
-  links_list_ = new LinksListView(this);
+  attachments_list_ = new LinksListView(this);
   scroll_area_ = new QScrollArea(this);
-  scroll_area_->setWidget(links_list_);
+  scroll_area_->setWidget(attachments_list_);
   scroll_area_->setFrameStyle(0);
   scroll_area_->setContentsMargins(0, 0, 0, 0);
-  scroll_area_->setMaximumHeight(links_list_->height());
+  scroll_area_->setMaximumHeight(attachments_list_->height());
   // scroll_area_->setBackgroundRole(QPalette::ColorRole::LinkVisited);
   splitter_ = new QSplitter(this);
   splitter_->addWidget(tab_widget_);
@@ -77,7 +77,7 @@ void RecordViewer::SetupUi() {
 }
 
 void RecordViewer::SetupSignals() {
-  connect(links_list_, SIGNAL(AddButtonWasPressed(bool)), this,
+  connect(attachments_list_, SIGNAL(AddButtonWasPressed(bool)), this,
           SLOT(AddNewAttach()));
 }
 
@@ -91,10 +91,11 @@ void RecordViewer::SetRecord(Record *record) {
 void RecordViewer::AddNewAttach() {
   Record::Attachment *new_attach =
       new Record::Attachment();
-  AddAttach attach_window(new_attach, this);
+  NewAttachmentDialog attach_window(new_attach, this);
   int result = attach_window.exec();
-  if (result == AddAttach::Accepted) {
-    record_->AddAttach(new_attach);
-    links_list_->Update();
+  if (result == NewAttachmentDialog::Accepted) {
+    // TODO: file-related actions
+    record_->AddAttachment(new_attach);
+    attachments_list_->Update();
   }
 }

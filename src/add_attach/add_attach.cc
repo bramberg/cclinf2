@@ -4,52 +4,56 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-AddAttach::AddAttach(QWidget *parent) : QDialog(parent), attach_(nullptr) {
+NewAttachmentDialog::NewAttachmentDialog(QWidget *parent)
+    : QDialog(parent), attachment_(nullptr) {
   SetupUi();
 }
 
-AddAttach::AddAttach(Record::Attachment *attach, QWidget *parent)
+NewAttachmentDialog::NewAttachmentDialog(Record::Attachment *attachment,
+                                         QWidget *parent)
     : QDialog(parent) {
   SetupUi();
-  SetAttach(attach);
+  SetAttachment(attachment);
 }
 
-AddAttach::~AddAttach() { ReleaseUi(); }
+NewAttachmentDialog::~NewAttachmentDialog() { ReleaseUi(); }
 
-Record::Attachment *AddAttach::GetAttach() const { return attach_; }
+Record::Attachment *NewAttachmentDialog::GetAttachment() const {
+  return attachment_;
+}
 
-void AddAttach::SetAttach(Record::Attachment *attach) {
-  attach_ = attach;
-  if (attach_) {
-    name_line_edit_->setText(attach_->name);
-    file_name_line_edit_->setText(attach_->file_name);
+void NewAttachmentDialog::SetAttachment(Record::Attachment *attachment) {
+  attachment_ = attachment;
+  if (attachment_) {
+    name_line_edit_->setText(attachment_->name);
+    file_name_line_edit_->setText(attachment_->file_name);
     name_line_edit_->setCursorPosition(0);
     file_name_line_edit_->setCursorPosition(0);
   }
 }
 
-void AddAttach::BrowseButtonIsPressed(bool is_pressed) {
+void NewAttachmentDialog::BrowseButtonIsPressed(bool is_pressed) {
   (void)is_pressed;
   QString file_name = QFileDialog::getOpenFileName(
-      this, tr("Select File"), attach_ ? attach_->file_name : "",
+      this, tr("Select File"), attachment_ ? attachment_->file_name : "",
       tr("All Files (*.*)"));
   if (!file_name.isEmpty()) {
     file_name_line_edit_->setText(file_name);
   }
 }
-bool AddAttach::NameAndFileNameAreSetUp() {
+bool NewAttachmentDialog::NameAndFileNameAreSetUp() {
   return file_name_line_edit_->text() != "" && name_line_edit_->text() != "";
 }
 
-void AddAttach::OkButtonIsPressed(bool is_pressed) {
+void NewAttachmentDialog::OkButtonIsPressed(bool is_pressed) {
   (void)is_pressed;
   if (NameAndFileNameAreSetUp()) {
-    if (attach_) {
-      if (attach_->file_name != file_name_line_edit_->text()) {
-        attach_->time_of_attach = QDateTime::currentDateTimeUtc();
+    if (attachment_) {
+      if (attachment_->file_name != file_name_line_edit_->text()) {
+        attachment_->time_of_attach = QDateTime::currentDateTimeUtc();
       }
-      attach_->file_name = file_name_line_edit_->text();
-      attach_->name = name_line_edit_->text();
+      attachment_->file_name = file_name_line_edit_->text();
+      attachment_->name = name_line_edit_->text();
     }
     this->accept();
   } else {
@@ -59,12 +63,12 @@ void AddAttach::OkButtonIsPressed(bool is_pressed) {
   }
 }
 
-void AddAttach::CancelButtonIsPressed(bool is_pressed) {
+void NewAttachmentDialog::CancelButtonIsPressed(bool is_pressed) {
   (void)is_pressed;
   this->reject();
 }
 
-void AddAttach::SetupSignals() {
+void NewAttachmentDialog::SetupSignals() {
   connect(browse_button_, SIGNAL(clicked(bool)), this,
           SLOT(BrowseButtonIsPressed(bool)));
   connect(ok_button_, SIGNAL(clicked(bool)), this,
@@ -73,7 +77,7 @@ void AddAttach::SetupSignals() {
           SLOT(CancelButtonIsPressed(bool)));
 }
 
-void AddAttach::SetupUi() {
+void NewAttachmentDialog::SetupUi() {
   title_label_ = new QLabel(tr("Attachment properties:"), this);
   title_label_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   name_line_edit_ = new QLineEdit(this);
@@ -82,7 +86,8 @@ void AddAttach::SetupUi() {
   browse_button_->setText(tr("..."));
   name_label_ = new QLabel(tr("Name:"), this);
   file_name_label_ = new QLabel(tr("File location:"), this);
-  copy_file_check_box_ = new QCheckBox(tr("Copy this file to local base"), this);
+  copy_file_check_box_ =
+      new QCheckBox(tr("Copy this file to local base"), this);
   ok_cancel_box_ = new QDialogButtonBox(this);
   ok_button_ = new QPushButton(tr("Ok"), this);
   cancel_button_ = new QPushButton(tr("Cancel"), this);
@@ -105,4 +110,4 @@ void AddAttach::SetupUi() {
   SetupSignals();
 }
 
-void AddAttach::ReleaseUi() {}
+void NewAttachmentDialog::ReleaseUi() {}

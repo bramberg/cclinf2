@@ -15,8 +15,8 @@ extern const QString kTagsTagName;
 extern const QString kTagTagName;
 extern const QString kChildrenTagName;
 extern const QString kChildTagName;
-extern const QString kAttachesTagName;
-extern const QString kAttachTagName;
+extern const QString kAttachmentsTagName;
+extern const QString kAttachmentTagName;
 extern const QString kNotesTagName;
 extern const QString kNoteTagName;
 

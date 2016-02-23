@@ -50,14 +50,14 @@ Record *IndexXmlReader::CreateTreeFromHash() {
       LinkParentAndChild(root, pair.second);
     } else if (pair.first == pair.second->GetUuid()) {
       LinkParentAndChild(root, pair.second);
-      pair.second->SetUnattached(true);
+      pair.second->SetNoParent(true);
     } else {
       Record *parent = FindInHashByUuid(pair.first);
       if (parent != nullptr) {
         LinkParentAndChild(parent, pair.second);
       } else {
         LinkParentAndChild(root, pair.second);
-        pair.second->SetUnattached(true);
+        pair.second->SetNoParent(true);
       }
     }
   }
@@ -201,24 +201,24 @@ void IndexXmlReader::ReadNote() {
   }
 }
 
-void IndexXmlReader::ReadAttach() {
-  if (xml_.isStartElement() && xml_.name() == kAttachTagName) {
-    Record::Attachment *attach = new Record::Attachment();
+void IndexXmlReader::ReadAttachment() {
+  if (xml_.isStartElement() && xml_.name() == kAttachmentTagName) {
+    Record::Attachment *attachment = new Record::Attachment();
     while (xml_.readNextStartElement()) {
       if (xml_.name() == kNameTagName) {
-        attach->name = xml_.readElementText();
+        attachment->name = xml_.readElementText();
       } else if (xml_.name() == kFileNameAttributeName) {
-        attach->file_name = xml_.readElementText();
+        attachment->file_name = xml_.readElementText();
       } else if (xml_.name() == kCreationTimeTagName) {
-        attach->time_of_attach =
+        attachment->time_of_attach =
             QDateTime::fromString(xml_.readElementText(), kDateTimeFormat);
       }
     }
-    if (!attach->file_name.isEmpty() && !attach->name.isEmpty()) {
-      current_record_->AddAttach(attach);
-      attach = nullptr;
+    if (!attachment->file_name.isEmpty() && !attachment->name.isEmpty()) {
+      current_record_->AddAttachment(attachment);
+      attachment = nullptr;
     }
-    delete attach;
+    delete attachment;
   }
 }
 
@@ -240,9 +240,9 @@ void IndexXmlReader::ReadRecord() {
         current_record_->SetNotation(xml_.readElementText());
       } else if (xml_.name() == kTagsTagName) {
         ReadArray(kTagsTagName, kTagTagName, &IndexXmlReader::ReadTag);
-      } else if (xml_.name() == kAttachesTagName) {
-        ReadArray(kAttachesTagName, kAttachTagName,
-                  &IndexXmlReader::ReadAttach);
+      } else if (xml_.name() == kAttachmentsTagName) {
+        ReadArray(kAttachmentsTagName, kAttachmentTagName,
+                  &IndexXmlReader::ReadAttachment);
       } else if (xml_.name() == kNotesTagName) {
         ReadArray(kNotesTagName, kNoteTagName, &IndexXmlReader::ReadNote);
       }

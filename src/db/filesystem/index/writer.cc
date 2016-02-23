@@ -81,7 +81,7 @@ void IndexXmlWriter::WriteNote(const Record::Note &note) {
   xml_.writeEndElement();
 }
 
-void IndexXmlWriter::WriteAttach(const Record::Attach &attach) {
+void IndexXmlWriter::WriteAttach(const Record::Attachment &attach) {
   xml_.writeStartElement(kAttachTagName);
   xml_.writeTextElement(kNameTagName, attach.name);
   xml_.writeTextElement(kCreationTimeTagName,
@@ -93,7 +93,8 @@ void IndexXmlWriter::WriteAttach(const Record::Attach &attach) {
 void IndexXmlWriter::WriteRecord(const Record &record) {
   xml_.writeStartElement(kRecordTagName);
   xml_.writeTextElement(kUuidTagName, record.GetUuid().toString());
-  xml_.writeTextElement(kParentUuidTagName, record.GetParentUuid().toString());
+  xml_.writeTextElement(kParentUuidTagName,
+                        record.GetParent()->GetUuid().toString());
   xml_.writeTextElement(kNameTagName, record.GetName());
   xml_.writeTextElement(kCreationTimeTagName,
                         record.GetCreationDate().toString(kDateTimeFormat));
@@ -112,8 +113,10 @@ void IndexXmlWriter::WriteRecord(const Record &record) {
   }
   if (!record.GetAttaches().isEmpty()) {
     xml_.writeStartElement(kAttachesTagName);
-    foreach (Record::Attach attach, record.GetAttaches()) {
-      WriteAttach(attach);
+    foreach (Record::Attachment *attach, record.GetAttaches()) {
+      if (attach) {
+        WriteAttach(*attach);
+      }
     }
     xml_.writeEndElement();
   }

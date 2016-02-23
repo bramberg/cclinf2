@@ -12,7 +12,7 @@ const QString IndexXmlReader::kVersion = "1.0.1";
 IndexXmlReader::IndexXmlReader() {}
 
 IndexXmlReader::~IndexXmlReader() {
-  foreach (Record *record, records_hash_) { delete record; }
+  foreach (RecordsPair pair, records_hash_) { delete pair.second; }
   records_hash_.clear();
 }
 
@@ -22,7 +22,7 @@ Record *IndexXmlReader::ReadRecordsFromFile(const QString &file_name) {
   if (!xml_file.isOpen()) {
     throw CouldNotOpenFile();
   }
-  Read(&xml_file);
+  Read(&xml_file);  // TODO: close file if exception occurs
   xml_file.close();
   Record *record_tree = CreateTreeFromHash();
   return record_tree;
@@ -35,29 +35,29 @@ void LinkParentAndChild(Record *parent, Record *child) {
 
 Record *IndexXmlReader::FindInHashByUuid(const QUuid &uuid) {
   Record *item = nullptr;
-  QHash<QUuid, Record *>::iterator it = records_hash_.find(uuid);
+  QHash<QUuid, QPair<QUuid, Record *> >::iterator it = records_hash_.find(uuid);
   if (it != records_hash_.end()) {
-    item = it.value();
+    item = it.value().second;
   }
   return item;
 }
 
 Record *IndexXmlReader::CreateTreeFromHash() {
-  Record *root = new Record("Root");
   const QUuid root_uuid = QUuid(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  foreach (Record *record, records_hash_) {
-    if (record->GetParentUuid() == root_uuid) {
-      LinkParentAndChild(root, record);
-    } else if (record->GetParentUuid() == record->GetUuid()) {
-      LinkParentAndChild(root, record);
-      record->SetUnattached(true);
+  Record *root = new Record(root_uuid, "Root");
+  foreach (RecordsPair pair, records_hash_) {
+    if (pair.first == root_uuid) {
+      LinkParentAndChild(root, pair.second);
+    } else if (pair.first == pair.second->GetUuid()) {
+      LinkParentAndChild(root, pair.second);
+      pair.second->SetUnattached(true);
     } else {
-      Record *parent = FindInHashByUuid(record->GetParentUuid());
-      if (!parent) {
-        LinkParentAndChild(root, record);
-        record->SetUnattached(true);
+      Record *parent = FindInHashByUuid(pair.first);
+      if (parent != nullptr) {
+        LinkParentAndChild(parent, pair.second);
       } else {
-        LinkParentAndChild(parent, record);
+        LinkParentAndChild(root, pair.second);
+        pair.second->SetUnattached(true);
       }
     }
   }
@@ -107,7 +107,7 @@ void IndexXmlReader::Read(QIODevice *device) {
     xml_.raiseError();
   }
 
-  qDebug() << "checkpoint " << __LINE__;
+  // qDebug() << "checkpoint " << __LINE__;
 
   // readNextStartElement() leaves the stream in
   // an invalid state at the end. A single readNext()
@@ -116,7 +116,7 @@ void IndexXmlReader::Read(QIODevice *device) {
     xml_.readNext();
   }
 
-  qDebug() << "checkpoint " << __LINE__;
+  // qDebug() << "checkpoint " << __LINE__;
 
   if (xml_.hasError()) {
     qDebug() << "ERROR " << __LINE__;
@@ -203,32 +203,34 @@ void IndexXmlReader::ReadNote() {
 
 void IndexXmlReader::ReadAttach() {
   if (xml_.isStartElement() && xml_.name() == kAttachTagName) {
-    Record::Attach attach;
+    Record::Attachment *attach = new Record::Attachment();
     while (xml_.readNextStartElement()) {
       if (xml_.name() == kNameTagName) {
-        attach.name = xml_.readElementText();
+        attach->name = xml_.readElementText();
       } else if (xml_.name() == kFileNameAttributeName) {
-        attach.file_name = xml_.readElementText();
+        attach->file_name = xml_.readElementText();
       } else if (xml_.name() == kCreationTimeTagName) {
-        attach.time_of_attach =
+        attach->time_of_attach =
             QDateTime::fromString(xml_.readElementText(), kDateTimeFormat);
       }
     }
-    if (!attach.file_name.isEmpty() && !attach.name.isEmpty()) {
+    if (!attach->file_name.isEmpty() && !attach->name.isEmpty()) {
       current_record_->AddAttach(attach);
+      attach = nullptr;
     }
+    delete attach;
   }
 }
 
 void IndexXmlReader::ReadRecord() {
   if (xml_.isStartElement() && xml_.name() == kRecordTagName) {
-    qDebug() << "checkpoint " << __LINE__;
     current_record_ = new Record();
+    QUuid parent_uuid;
     while (xml_.readNextStartElement()) {
       if (xml_.name() == kUuidTagName) {
         current_record_->SetUuid(xml_.readElementText());
       } else if (xml_.name() == kParentUuidTagName) {
-        current_record_->SetParentUuid(xml_.readElementText());
+        parent_uuid = QUuid(xml_.readElementText());
       } else if (xml_.name() == kNameTagName) {
         current_record_->SetName(xml_.readElementText());
       } else if (xml_.name() == kCreationTimeTagName) {
@@ -246,7 +248,9 @@ void IndexXmlReader::ReadRecord() {
       }
     }
     if (!records_hash_.contains(current_record_->GetUuid())) {
-      records_hash_.insert(current_record_->GetUuid(), current_record_);
+      records_hash_.insert(
+          current_record_->GetUuid(),
+          QPair<QUuid, Record *>(parent_uuid, current_record_));
     } else {
       delete current_record_;
     }

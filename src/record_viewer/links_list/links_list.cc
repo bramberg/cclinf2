@@ -40,15 +40,19 @@ void LinksListView::SetupUi() {
   QWidget::show();
 }
 
-void LinksListView::UpdateUi() {
+void LinksListView::Update() {
+  //record_.
   foreach (LinkView *element, elements_) {}
 }
 
-void LinksListView::SetupSignals() {}
+void LinksListView::SetupSignals() {
+  connect(add_button_, SIGNAL(clicked(bool)), this,
+          SIGNAL(AddButtonWasPressed(bool)));
+}
 
 void LinksListView::AddElement(const QString &text) {
   LinkView *new_element = new LinkView(text, this);
   elements_.append(new_element);
   layout_->addWidget(new_element);
-  this->UpdateUi();
+  this->Update();
 }

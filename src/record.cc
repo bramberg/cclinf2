@@ -1,15 +1,14 @@
 
 #include "record.h"
 
-// Record::Record(Record *parent) {
-//  // name_ = "<NOT SET>";
-//  parent_ = parent;
-//}
+Record::Record(Record *parent)
+    : parent_(parent), name_("<NOT_SET>"), is_unattached_(false) {}
 
-// Record::Record(const QString name, Record *parent) {
-//  name_ = name;
-//  parent_ = parent;
-//}
+Record::Record(const QUuid uuid, Record *parent)
+    : uuid_(uuid), parent_(parent) {}
+
+Record::Record(const QUuid uuid, const QString name, Record *parent)
+    : uuid_(uuid), parent_(parent), name_(name), is_unattached_(false) {}
 
 Record::~Record() { qDeleteAll(children_); }
 
@@ -34,9 +33,9 @@ Record *Record::GetParent() const { return parent_; }
 
 void Record::SetParent(Record *parent) { parent_ = parent; }
 
-QList<Record::Attach> Record::GetAttaches() const { return attaches_; }
+QList<Record::Attachment *> Record::GetAttaches() const { return attaches_; }
 
-void Record::SetAttaches(const QList<Record::Attach> &attached_files) {
+void Record::SetAttaches(QList<Record::Attachment *> attached_files) {
   attaches_ = attached_files;
 }
 
@@ -59,25 +58,15 @@ QDateTime Record::GetCreationDate() const { return creation_time_; }
 
 void Record::SetCreationTime(const QDateTime &date) { creation_time_ = date; }
 
-void Record::AddAttach(const Record::Attach &attach) {
-  attaches_.append(attach);
-}
+void Record::AddAttach(Record::Attachment *attach) { attaches_.append(attach); }
 
 void Record::AddNote(const Record::Note &note) { notes_.append(note); }
 
 void Record::AddTag(const QString &tag) { tags_.append(tag); }
 
-void Record::AddChildUuid(const QUuid &uuid) { children_uuids_.append(uuid); }
-
 QUuid Record::GetUuid() const { return uuid_; }
 
 void Record::SetUuid(const QUuid &uuid) { uuid_ = uuid; }
-
-QUuid Record::GetParentUuid() const { return parent_uuid_; }
-
-void Record::SetParentUuid(const QUuid &parent_uuid) {
-  parent_uuid_ = parent_uuid;
-}
 
 bool Record::IsUnattached() { return is_unattached_; }
 

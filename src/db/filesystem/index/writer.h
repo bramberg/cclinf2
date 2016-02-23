@@ -35,7 +35,7 @@ class IndexXmlWriter {
   void WriteSettings();
   void WriteRecord(const Record &record);
   void WriteNote(const Record::Note &note);
-  void WriteAttach(const Record::Attach &attach);
+  void WriteAttach(const Record::Attachment &attach);
   void WriteTag(const QString &tag);
 };
 

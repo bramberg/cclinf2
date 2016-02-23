@@ -1,5 +1,6 @@
 
 #include "record_viewer.h"
+#include <QMessageBox>
 
 RecordViewer::RecordViewer(QWidget *parent) : QWidget(parent) {
   SetupUi();
@@ -71,22 +72,29 @@ void RecordViewer::SetupUi() {
   // layout_->addWidget(tab_widget_);
   // layout_->addWidget(scroll_area_);
 
-  add_attach_ = new AddAttach(this);
-  Record::Attach attach{"Name of attach", "/home/user/VBoxLinuxAdditions.run12",
-                        QDateTime(QDate(), QTime())};
-  add_attach_->SetAttach(&attach);
-
-  add_attach_->exec();
-
   QWidget::setLayout(layout_);
   QWidget::show();
 }
 
-void RecordViewer::SetupSignals() {}
+void RecordViewer::SetupSignals() {
+  connect(links_list_, SIGNAL(AddButtonWasPressed(bool)), this,
+          SLOT(AddNewAttach()));
+}
 
 void RecordViewer::UpdateUi() {}
 
 void RecordViewer::SetRecord(Record *record) {
   record_ = record;
   this->UpdateUi();
+}
+
+void RecordViewer::AddNewAttach() {
+  Record::Attachment *new_attach =
+      new Record::Attachment();
+  AddAttach attach_window(new_attach, this);
+  int result = attach_window.exec();
+  if (result == AddAttach::Accepted) {
+    record_->AddAttach(new_attach);
+    links_list_->Update();
+  }
 }

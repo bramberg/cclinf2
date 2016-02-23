@@ -17,15 +17,15 @@ class AddAttach : public QDialog {
   Q_OBJECT
 
  public:
+  enum Result { ResultOk, ResultCancel };
+
   explicit AddAttach(QWidget* parent = 0);
-  explicit AddAttach(Record::Attach* attach, QWidget* parent = 0);
+  explicit AddAttach(Record::Attachment* attach, QWidget* parent = 0);
   ~AddAttach();
 
   void Show();
-  Record::Attach* GetAttach() const;
-  void SetAttach(Record::Attach* attach);
-
-  void show();
+  Record::Attachment* GetAttach() const;
+  void SetAttach(Record::Attachment* attach);
 
 signals:
 
@@ -35,7 +35,7 @@ signals:
   void CancelButtonIsPressed(bool);
 
  private:
-  Record::Attach* attach_;
+  Record::Attachment* attach_;
 
   QGridLayout* layout_;
   QDialogButtonBox* ok_cancel_box_;
@@ -46,12 +46,15 @@ signals:
   QPushButton* ok_button_;
   QPushButton* cancel_button_;
   QToolButton* browse_button_;
-  QLineEdit* name_line_;
-  QLineEdit* file_name_line_;
+  QLineEdit* name_line_edit_;
+  QLineEdit* file_name_line_edit_;
   QCheckBox* copy_file_check_box_;
 
   void SetupUi();
+  void SetupSignals();
   void ReleaseUi();
+  void SetupEditableValues(Record::Attachment& attach);
+  bool NameAndFileNameAreSetUp();
 };
 
 #endif

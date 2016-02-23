@@ -10,21 +10,27 @@
 
 #include "link_view.h"
 #include "vertical_scroll_area.h"
+#include "record.h"
 
 class LinksListView : public QWidget {
+  Q_OBJECT
  public:
   explicit LinksListView(QWidget* parent = 0);
 
   void SetupUi();
-  void UpdateUi();
   void SetupSignals();
   void AddElement(const QString& text);
-  //void DeleteElement();
+  void Update();
+// void DeleteElement();
+
+signals:
+  void AddButtonWasPressed(bool is_pressed);
 
  private:
-  QVBoxLayout *layout_;
+  QList<Record::Attachment*> *attachments_;
   QList<LinkView*> elements_;
-  QToolButton *add_button_;
+  QVBoxLayout* layout_;
+  QToolButton* add_button_;
 };
 
 #endif  // ATTACHESVIEW_H

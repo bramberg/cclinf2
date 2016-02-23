@@ -32,13 +32,14 @@ class RecordViewer : public QWidget {
 signals:
 
  public slots:
+  void AddNewAttach();
 
  private:
+  Record *record_;
+
   QVBoxLayout *layout_;
   RecordTitle *title_;
   Editor *notes_editor_;
-
-  Record *record_;
 
   QTabWidget *tab_widget_;  // TODO: custom tab widget
   QList<Editor *> notes_editors_;

@@ -15,7 +15,7 @@ class Record {
     QDateTime creation_time;
   };
 
-  struct Attach {
+  struct Attachment {
     QString name;
     QString file_name;
     QDateTime time_of_attach;
@@ -33,10 +33,9 @@ class Record {
     }
   };
 
-  explicit Record(Record *parent = 0)
-      : parent_(parent), name_("<NOT_SET>"), is_unattached_(false) {}
-  explicit Record(const QString name, Record *parent = 0)
-      : parent_(parent), name_(name), is_unattached_(false) {}
+  explicit Record(Record *parent = 0);
+  explicit Record(const QUuid uuid, Record *parent = 0);
+  explicit Record(const QUuid uuid, const QString name, Record *parent = 0);
   ~Record();
 
   void AppendChild(Record *child);
@@ -53,8 +52,8 @@ class Record {
 
   int GetNumberOfNotes() const;
 
-  QList<Record::Attach> GetAttaches() const;
-  void SetAttaches(const QList<Record::Attach> &attached_files);
+  QList<Attachment *> GetAttaches() const;
+  void SetAttaches(QList<Record::Attachment *> attached_files);
 
   QStringList GetTags() const;
   void SetTagList(const QStringList &tags);
@@ -68,16 +67,12 @@ class Record {
   QDateTime GetCreationDate() const;
   void SetCreationTime(const QDateTime &date);
 
-  void AddAttach(const Attach &attach);
+  void AddAttach(Attachment *attach);
   void AddNote(const Note &note);
   void AddTag(const QString &tag);
-  void AddChildUuid(const QUuid &uuid);
 
   QUuid GetUuid() const;
   void SetUuid(const QUuid &uuid);
-
-  QUuid GetParentUuid() const;
-  void SetParentUuid(const QUuid &parent_uuid);
 
   bool IsUnattached();
   void SetUnattached(bool is_unattached);
@@ -89,15 +84,13 @@ class Record {
   Record *parent_;
 
   QUuid uuid_;
-  QUuid parent_uuid_;
-  QList<QUuid> children_uuids_;
 
   QString name_;
   QDateTime creation_time_;
   QString notation_;
 
   QList<Note> notes_;
-  QList<Attach> attaches_;
+  QList<Attachment *> attaches_;
   QStringList tags_;
 
   bool is_unattached_;

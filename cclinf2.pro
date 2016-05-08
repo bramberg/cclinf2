@@ -64,7 +64,8 @@ HEADERS += \
     src/navigation/navigation.h \
     src/record_viewer/title/record_title.h \
     src/record.h \
-    src/dialogs/new_attachment_dialog.h
+    src/dialogs/new_attachment_dialog.h \
+    src/settings.h
 
 DISTFILES +=
 

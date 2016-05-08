@@ -11,6 +11,8 @@
 #include <QDockWidget>
 #include <QStatusBar>
 #include <QMenuBar>
+#include <QSettings>
+#include <QCloseEvent>
 
 #include "navigation/tree/tree_view.h"
 #include "record_viewer/editor/editor.h"
@@ -23,11 +25,14 @@ class MainWindow : public QMainWindow {
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
- private slots:
+
+private slots:
 
  private:
   void SetupUi();
   void ReleaseUi();
+
+  void SetDefaultSettings();
 
   QMenuBar *CreateMainMenuBar();
 
@@ -47,6 +52,8 @@ class MainWindow : public QMainWindow {
   QWidget *window_;
 
   RecordViewer *record_viewer_;
+
+  //QSettings *settings_;
 
  protected:
 };

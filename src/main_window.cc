@@ -5,11 +5,14 @@
 #include <QXmlStreamReader>
 #include <QMessageBox>
 #include <QApplication>
+#include <QFileInfo>
+#include <QStandardPaths>
 #include <QDebug>
 
 #include <iostream>
 
 #include "db/filesystem/xml.h"
+#include "settings.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) { SetupUi(); }
 
@@ -137,6 +140,41 @@ void MainWindow::SetupUi() {
 
   this->setContentsMargins(0, 0, 0, 0);  // setSizePolicy();
                                          // this->setMargin(0);
+
+  QSettings settings("Andrew Boring", "cclinf2", this);
+  if (settings.value(settings_names::kDatabasePath).isNull()) {
+    SetDefaultSettings();
+  }
 }
 
 void MainWindow::ReleaseUi() {}
+
+void MainWindow::SetDefaultSettings()
+{
+  QSettings settings("Andrew Boring", "cclinf2", this);
+  settings.setValue(settings_names::kDatabasePath,
+                    QFileInfo(QFile("./database")).absoluteFilePath());
+  settings.setValue(settings_names::kDatabaseIndexName,
+                    QFileInfo(QFile("index.xml")).absoluteFilePath());
+  settings.sync();
+}
+
+/*
+void MainWindow::ReadSettings() {
+  settings_ = new QSettings("Andrew Boring", "cclinf2", this);
+  // settings_->setFallbacksEnabled(false);
+  QMessageBox(QMessageBox::Critical, tr("Error"),
+              QString("x = %1").arg(settings_->value("myFilePath").toString()),
+              QMessageBox::Ok).exec();
+  settings_->setValue("test", 12);
+  QFile fn("../123.txt");
+
+
+  QMessageBox(QMessageBox::Information, "",
+                QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation),
+                QMessageBox::Ok).exec();
+
+  settings_->setValue("myFilePath", QFileInfo(fn).absoluteFilePath());
+  settings_->sync();
+  // settings_->setSystemIniPath();
+}//*/

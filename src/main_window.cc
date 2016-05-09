@@ -159,22 +159,3 @@ void MainWindow::SetDefaultSettings()
   settings.sync();
 }
 
-/*
-void MainWindow::ReadSettings() {
-  settings_ = new QSettings("Andrew Boring", "cclinf2", this);
-  // settings_->setFallbacksEnabled(false);
-  QMessageBox(QMessageBox::Critical, tr("Error"),
-              QString("x = %1").arg(settings_->value("myFilePath").toString()),
-              QMessageBox::Ok).exec();
-  settings_->setValue("test", 12);
-  QFile fn("../123.txt");
-
-
-  QMessageBox(QMessageBox::Information, "",
-                QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation),
-                QMessageBox::Ok).exec();
-
-  settings_->setValue("myFilePath", QFileInfo(fn).absoluteFilePath());
-  settings_->sync();
-  // settings_->setSystemIniPath();
-}//*/

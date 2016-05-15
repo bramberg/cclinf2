@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-#include "db/filesystem/xml.h"
+#include "db/filesystem/database_reader.h"
 #include "settings.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) { SetupUi(); }
@@ -32,6 +32,13 @@ QMenuBar *MainWindow::CreateMainMenuBar() {
 }
 
 void MainWindow::SetupUi() {
+  QSettings settings("Andrew Boring", "cclinf2", this);
+  if (settings.value(settings_names::kDatabasePath).isNull()) {
+    SetDefaultSettings();
+  }
+
+  ReadDatabaseIndex();
+
   // QMessageBox::aboutQt(this);
 
   // this->setMenuBar(menu_bar_);
@@ -140,17 +147,11 @@ void MainWindow::SetupUi() {
 
   this->setContentsMargins(0, 0, 0, 0);  // setSizePolicy();
                                          // this->setMargin(0);
-
-  QSettings settings("Andrew Boring", "cclinf2", this);
-  if (settings.value(settings_names::kDatabasePath).isNull()) {
-    SetDefaultSettings();
-  }
 }
 
 void MainWindow::ReleaseUi() {}
 
-void MainWindow::SetDefaultSettings()
-{
+void MainWindow::SetDefaultSettings() {
   QSettings settings("Andrew Boring", "cclinf2", this);
   settings.setValue(settings_names::kDatabasePath,
                     QFileInfo(QFile("./database")).absoluteFilePath());
@@ -159,3 +160,18 @@ void MainWindow::SetDefaultSettings()
   settings.sync();
 }
 
+Record *MainWindow::ReadDatabaseIndex(const QString &path_to_database) {
+  Record *records_index = nullptr;
+  try {
+    FileSystemDatabaseReader reader(path_to_database);
+    records_index = reader.ReadIndex();
+  } catch (IndexXmlReader::CouldNotOpenFile &) {
+    QMessageBox(QMessageBox::Critical, tr("Error"),
+                tr("Could not open database index file."),
+                QMessageBox::Ok).exec();
+  } catch (IndexXmlReader::FileHasInvalidVersion &) {
+    QMessageBox(QMessageBox::Critical, tr("Error"),
+                tr("Database index version is incorrect."),
+                QMessageBox::Ok).exec();
+  }
+}

@@ -1,9 +1,10 @@
 
 #include "db/filesystem/index/reader.h"
-#include "db/filesystem/index/common.h"
 #include <QFile>
 #include <QStack>
 #include <QDebug>
+#include "db/filesystem/index/common.h"
+#include "db/exceptions.h"
 
 using namespace xml_names;
 
@@ -20,9 +21,9 @@ Record *IndexXmlReader::ReadRecordsFromFile(const QString &file_name) {
   QFile xml_file(file_name);
   xml_file.open(QIODevice::ReadOnly);
   if (!xml_file.isOpen()) {
-    throw CouldNotOpenFile();
+    throw exceptions::CouldNotOpenFileForReading();
   }
-  Read(&xml_file);  // TODO: close file if exception occurs
+  Read(&xml_file); // Can throw. QFile dtor will close file in that case. RAII.
   xml_file.close();
   Record *record_tree = CreateTreeFromHash();
   return record_tree;
@@ -86,7 +87,7 @@ void IndexXmlReader::ReadArray(const QString &array_name,
           break;
         }
       } else if (token == QXmlStreamReader::EndDocument) {
-        throw ParsingError(
+        throw exceptions::ParsingError(
             QString("Exception on line %1. Unexpected end of file.")
                 .arg(__LINE__));
       }
@@ -134,14 +135,14 @@ void IndexXmlReader::ReadIndex() {
         if (xml_.name() == kIndexTagName) {
           break;
         } else {
-          throw ParsingError(
+          throw exceptions::ParsingError(
               QString(
                   "Exception on line %1. Unexpected end-token in xml file: ")
                   .arg(xml_.lineNumber()) +
               xml_.name().toString());
         }
       } else if (token == QXmlStreamReader::EndDocument) {
-        throw ParsingError(
+        throw exceptions::ParsingError(
             QString("Exception on line %1. Unexpected end of file.")
                 .arg(xml_.lineNumber()));
       }

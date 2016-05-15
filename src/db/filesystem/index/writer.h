@@ -10,12 +10,6 @@
 
 class IndexXmlWriter {
  public:
-  class ParsingError : public Exception {
-   public:
-    ParsingError(const QString &message = "") : Exception(message) {}
-  };
-  class CouldNotOpenFileForWriting : public Exception {};
-
   static const QString kVersion;
 
   IndexXmlWriter();

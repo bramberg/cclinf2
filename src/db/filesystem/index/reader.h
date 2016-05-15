@@ -10,13 +10,6 @@
 
 class IndexXmlReader /*: public XmlParser*/ {
  public:
-  class ParsingError : public Exception {
-   public:
-    ParsingError(const QString &message = "") : Exception(message) {}
-  };
-  class CouldNotOpenFile : public Exception {};
-  class FileHasInvalidVersion : public Exception {};
-
   IndexXmlReader();
   ~IndexXmlReader();
 

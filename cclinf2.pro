@@ -8,7 +8,7 @@ SOURCES += \
     src/db/filesystem/index/common.cc \
     src/db/filesystem/index/reader.cc \
     src/db/filesystem/index/writer.cc \
-    src/db/filesystem/db.cc \
+    src/db/db.cc \
     src/db/filesystem/xml.cc \
     src/db/record_data.cc \
     src/db/settings.cc \
@@ -28,7 +28,9 @@ SOURCES += \
     src/navigation/navigation.cc \
     src/record_viewer/title/record_title.cc \
     src/record.cc \
-    src/dialogs/new_attachment_dialog.cc
+    src/dialogs/new_attachment_dialog.cc \
+    src/db/database_reader.cc \
+    src/db/filesystem/database_reader.cc
 
 INCLUDEPATH += src
 
@@ -45,7 +47,7 @@ HEADERS += \
     src/db/filesystem/index/common.h \
     src/db/filesystem/index/reader.h \
     src/db/filesystem/index/writer.h \
-    src/db/filesystem/db.h \
+    src/db/db.h \
     src/db/filesystem/xml.h \
     src/db/record_data.h \
     src/db/settings.h \
@@ -65,7 +67,10 @@ HEADERS += \
     src/record_viewer/title/record_title.h \
     src/record.h \
     src/dialogs/new_attachment_dialog.h \
-    src/settings.h
+    src/settings.h \
+    src/db/database_reader.h \
+    src/db/filesystem/database_reader.h \
+    src/db/exceptions.h
 
 DISTFILES +=
 

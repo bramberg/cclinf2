@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QStack>
 #include <QDebug>
+#include "db/exceptions.h"
 
 using namespace xml_names;
 
@@ -18,7 +19,7 @@ void IndexXmlWriter::WriteIndexToFile(const Record *records_tree,
   QFile xml_file(file_name);
   xml_file.open(QIODevice::WriteOnly);
   if (!xml_file.isOpen()) {
-    throw CouldNotOpenFileForWriting();
+    throw exceptions::CouldNotOpenFileForWriting();
   }
   Write(records_tree, &xml_file);
   xml_file.close();

@@ -33,6 +33,7 @@ private slots:
   void ReleaseUi();
 
   void SetDefaultSettings();
+  Record *ReadDatabaseIndex(const QString& path_to_database);
 
   QMenuBar *CreateMainMenuBar();
 

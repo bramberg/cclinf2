@@ -1,5 +1,5 @@
 
-#include "db/filesystem/database_reader.h"
+#include "db/filesystem/filesystem_database_reader.h"
 #include "db/filesystem/index/reader.h"
 
 FileSystemDatabaseReader::FileSystemDatabaseReader(

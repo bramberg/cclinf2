@@ -29,10 +29,8 @@ void MainWindow::SetupModel() {
   this->database_ = new Database();
   this->database_reader_ = new FileSystemDatabaseReader(
       settings.value(settings_names::kDatabasePath).toString());
-  Record *records_index = nullptr;
   try {
     this->database_->Read(*this->database_reader_);
-    records_index = this->database_->GetRecordsTree();
   } catch (exceptions::CouldNotOpenFileForReading &) {
     QMessageBox(QMessageBox::Critical, tr("Error"),
                 tr("Could not open database index file."),

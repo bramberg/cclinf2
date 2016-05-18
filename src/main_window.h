@@ -15,7 +15,7 @@
 #include <QCloseEvent>
 
 #include "db/db.h"
-#include "db/filesystem/database_reader.h"
+#include "db/filesystem/filesystem_database_reader.h"
 #include "navigation/tree/tree_view.h"
 #include "record_viewer/editor/editor.h"
 #include "record_viewer/record_viewer.h"

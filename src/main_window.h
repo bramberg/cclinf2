@@ -14,6 +14,8 @@
 #include <QSettings>
 #include <QCloseEvent>
 
+#include "db/db.h"
+#include "db/filesystem/database_reader.h"
 #include "navigation/tree/tree_view.h"
 #include "record_viewer/editor/editor.h"
 #include "record_viewer/record_viewer.h"
@@ -30,10 +32,6 @@ private slots:
 
  private:
   void SetupUi();
-  void ReleaseUi();
-
-  void SetDefaultSettings();
-  Record *ReadDatabaseIndex(const QString& path_to_database);
 
   QMenuBar *CreateMainMenuBar();
 
@@ -53,6 +51,12 @@ private slots:
   QWidget *window_;
 
   RecordViewer *record_viewer_;
+
+  // model
+  void SetupModel();
+  void SetDefaultSettings();
+  Database *database_;
+  FileSystemDatabaseReader *database_reader_;
 
   //QSettings *settings_;
 

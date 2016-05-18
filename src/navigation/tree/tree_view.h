@@ -12,6 +12,7 @@
 
 #include <QStyledItemDelegate>
 
+#include "record.h"
 #include "navigation/search_line/search_line.h"
 #include "navigation/tree/tree_model.h"
 
@@ -30,10 +31,13 @@ class NavigationTree : public QWidget {
   NavigationTree(QWidget *parent = 0);
   ~NavigationTree();
 
- private slots:
+  Record *GetRecordsTree() const;
+  void SetRecordsTree(Record *GetRecordsTree);
+
+private slots:
   void TreeElementSelected(const QModelIndex &index);
 
- private:
+private:
   void SetupModels();
   void SetupSignals();
   void SetupUI();
@@ -48,7 +52,7 @@ class NavigationTree : public QWidget {
 
   QLabel *label_;
 
-
+  Record *records_tree_;
 };
 
 #endif

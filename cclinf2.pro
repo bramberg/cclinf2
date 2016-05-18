@@ -30,6 +30,7 @@ SOURCES += \
     src/record.cc \
     src/dialogs/new_attachment_dialog.cc \
     src/db/database_reader.cc \
+    src/db/database_writer.cc
     src/db/filesystem/database_reader.cc
 
 INCLUDEPATH += src
@@ -69,6 +70,7 @@ HEADERS += \
     src/dialogs/new_attachment_dialog.h \
     src/settings.h \
     src/db/database_reader.h \
+    src/db/database_writer.h \
     src/db/filesystem/database_reader.h \
     src/db/exceptions.h
 

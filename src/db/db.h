@@ -4,16 +4,23 @@
 
 #include <QString>
 #include "record.h"
+#include "db/database_reader.h"
+#include "db/database_writer.h"
+#include "db/exceptions.h"
 
 class Database {
 public:
 
+  Database();
+  ~Database();
 
   void Read(DatabaseReader& reader);
+  void Write(DatabaseWriter& writer);
 
+  Record *GetRecordsTree() const;
+  void SetRecordsTree(Record *records_tree);
 
 private:
-  QString path_to_database_;
   Record *records_tree_;
 
 };

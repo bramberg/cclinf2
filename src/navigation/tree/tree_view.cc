@@ -72,27 +72,11 @@ void NavigationTree::TreeElementSelected(const QModelIndex &index) {
 }
 
 void NavigationTree::SetupModels() {
-  Record *records_from_file;
-
-  try {
-    records_from_file = IndexXmlReader().ReadRecordsFromFile(
-        // "C:\\Users\\andrey\\Documents\\QtProjects\\test2.xml");
-        "./../test.xml");
-  } catch (IndexXmlReader::CouldNotOpenFile &e) {
-    QMessageBox(QMessageBox::Critical, tr("Error"),
-                tr("Could not open database index file."),
-                QMessageBox::Ok).exec();
-  } catch (IndexXmlReader::FileHasInvalidVersion &e) {
-    QMessageBox(QMessageBox::Critical, tr("Error"),
-                tr("Database index version is incorrect."),
-                QMessageBox::Ok).exec();
-  }
-
-  IndexXmlWriter().WriteIndexToFile(records_from_file, "../test2.xml");
+  // IndexXmlWriter().WriteIndexToFile(records_from_file, "../test2.xml");
   // records_from_file, "C:\\Users\\andrey\\Documents\\QtProjects\\test2.xml");
 
-  if (records_from_file) {
-    tree_model_ = new TreeModel(records_from_file, nullptr);
+  if (this->records_tree_) {
+    tree_model_ = new TreeModel(this->records_tree_, nullptr);
     tree_widget_->setModel(tree_model_);
 
     delegate_ = new HtmlDelegate();
@@ -124,4 +108,10 @@ void NavigationTree::SetupUI() {
 
   SetupModels();
   SetupSignals();
+}
+
+Record *NavigationTree::GetRecordsTree() const { return records_tree_; }
+
+void NavigationTree::SetRecordsTree(Record *records_tree) {
+  records_tree_ = records_tree;
 }
